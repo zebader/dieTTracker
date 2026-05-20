@@ -1,7 +1,70 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Keyboard } from 'react-native';
 import { styled } from 'styled-components/native';
+
+export default function Tracker() {
+  const [inputText, setInputText] = useState('');
+  const [todayLogs, setTodayLogs] = useState([]);
+
+  useEffect(() => {
+    // 1. Setup tables
+    /*  initializeDatabase(); */
+    // 2. Load any existing records saved today
+    refreshLogs();
+  }, []);
+
+  const refreshLogs = () => {
+    /*    const data = getTodayLogs();
+    setTodayLogs(data); */
+  };
+
+  const handleSave = () => {
+    if (!inputText.trim()) {
+      Alert.alert('Empty Log', 'Please type out your food entries first.');
+      return;
+    }
+
+    // Save entry straight into SQLite
+    /* saveDailyLog(inputText); */
+    setInputText('');
+    Keyboard.dismiss();
+
+    // Refresh local list state immediately
+    refreshLogs();
+  };
+
+  return (
+    <S.Container>
+      <S.ContentWrapper>
+        <S.SectionTitle>Log Today&apos;s Meals</S.SectionTitle>
+
+        <S.StyledInput
+          placeholder="Example: Breakfast: 3 scrambled eggs, coffee. Lunch: Chicken wrap..."
+          multiline
+          numberOfLines={4}
+          value={inputText}
+          onChangeText={setInputText}
+        />
+
+        <S.ActionButton onPress={handleSave}>
+          <S.ButtonText>Save Day Log locally</S.ButtonText>
+        </S.ActionButton>
+
+        <S.SectionTitle>Saved Today In SQLite</S.SectionTitle>
+        <FlatList
+          data={todayLogs}
+          /* keyExtractor={(item) => item.id.toString()} */
+          renderItem={({ item }) => (
+            <S.LogCard>
+              {/*               <LogText>{item.raw_text}</LogText>
+              <LogTime>{item.timestamp} ({item.meal_period})</LogTime> */}
+            </S.LogCard>
+          )}
+        />
+      </S.ContentWrapper>
+    </S.Container>
+  );
+}
 
 namespace S {
   export const Container = styled.SafeAreaView`
@@ -67,69 +130,4 @@ namespace S {
   color: #7f8c8d;
   margin-top: 4px;
 `;
-}
-
-export default function App() {
-  const [inputText, setInputText] = useState('');
-  const [todayLogs, setTodayLogs] = useState([]);
-
-  useEffect(() => {
-    // 1. Setup tables
-    /*  initializeDatabase(); */
-    // 2. Load any existing records saved today
-    refreshLogs();
-  }, []);
-
-  const refreshLogs = () => {
-    /*    const data = getTodayLogs();
-    setTodayLogs(data); */
-  };
-
-  const handleSave = () => {
-    if (!inputText.trim()) {
-      Alert.alert('Empty Log', 'Please type out your food entries first.');
-      return;
-    }
-
-    // Save entry straight into SQLite
-    /* saveDailyLog(inputText); */
-    setInputText('');
-    Keyboard.dismiss();
-
-    // Refresh local list state immediately
-    refreshLogs();
-  };
-
-  return (
-    <S.Container>
-      <S.ContentWrapper>
-        <S.SectionTitle>Log Today&apos;s Meals</S.SectionTitle>
-
-        <S.StyledInput
-          placeholder="Example: Breakfast: 3 scrambled eggs, coffee. Lunch: Chicken wrap..."
-          multiline
-          numberOfLines={4}
-          value={inputText}
-          onChangeText={setInputText}
-        />
-
-        <S.ActionButton onPress={handleSave}>
-          <S.ButtonText>Save Day Log locally</S.ButtonText>
-        </S.ActionButton>
-
-        <S.SectionTitle>Saved Today In SQLite</S.SectionTitle>
-        <FlatList
-          data={todayLogs}
-          /* keyExtractor={(item) => item.id.toString()} */
-          renderItem={({ item }) => (
-            <S.LogCard>
-              {/*               <LogText>{item.raw_text}</LogText>
-              <LogTime>{item.timestamp} ({item.meal_period})</LogTime> */}
-            </S.LogCard>
-          )}
-        />
-      </S.ContentWrapper>
-      <StatusBar style="dark" />
-    </S.Container>
-  );
 }
