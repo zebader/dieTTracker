@@ -2,10 +2,20 @@
 const { defineConfig } = require('eslint/config');
 const expoConfig = require('eslint-config-expo/flat');
 const stylistic = require('@stylistic/eslint-plugin');
+const globals = require('globals');
 const unusedImports = require('eslint-plugin-unused-imports');
 
 module.exports = defineConfig([
   expoConfig,
+  {
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+        },
+      },
+    },
+  },
   {
     plugins: {
       '@stylistic': stylistic,
@@ -26,6 +36,12 @@ module.exports = defineConfig([
           argsIgnorePattern: '^_',
         },
       ],
+    },
+  },
+  {
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: globals.node,
     },
   },
   {
