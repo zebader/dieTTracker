@@ -10,7 +10,12 @@ module.exports = defineConfig([
   {
     settings: {
       'import/resolver': {
+        alias: {
+          map: [['@/assets', './assets/index.ts']],
+          extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        },
         typescript: {
+          alwaysTryTypes: true,
           project: './tsconfig.json',
         },
       },

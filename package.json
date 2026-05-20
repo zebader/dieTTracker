@@ -9,6 +9,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
+    "typecheck": "tsc --noEmit",
+    "validate": "npm run lint && npm run typecheck",
+    "prepare": "husky",
     "generate-feature": "node scripts/scaffold-feature.js"
   },
   "dependencies": {
@@ -45,7 +48,9 @@
     "@types/react": "~19.1.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-unused-imports": "^4.4.1",
+    "husky": "^9.1.7",
     "typescript": "~5.9.2"
   },
   "private": true

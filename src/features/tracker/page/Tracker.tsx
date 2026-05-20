@@ -1,112 +1,135 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, Keyboard } from 'react-native';
+import { styled } from 'styled-components/native';
 
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Collapsible } from '@/components/ui/collapsible';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/src/constants/theme';
+namespace S {
+  export const Container = styled.SafeAreaView`
+  flex: 1;
+  background-color: #f7f5f0;
+  padding: 20px;
+`;
 
-export default function Tracker() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
-  );
+  export const ContentWrapper = styled.View`
+  flex: 1;
+  width: 100%;
+  margin-top: 40px;
+`;
+
+  export const SectionTitle = styled.Text`
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 12px;
+`;
+
+  export const StyledInput = styled.TextInput`
+  background-color: #ffffff;
+  border-width: 1px;
+  border-color: #d1cbd4;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  text-align-vertical: top;
+  margin-bottom: 12px;
+`;
+
+  export const ActionButton = styled.TouchableOpacity`
+  background-color: #4caf50;
+  padding: 14px;
+  border-radius: 8px;
+  align-items: center;
+  margin-bottom: 24px;
+`;
+
+  export const ButtonText = styled.Text`
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+`;
+
+  export const LogCard = styled.View`
+  background-color: white;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border-left-width: 4px;
+  border-left-color: #4caf50;
+`;
+
+  export const LogText = styled.Text`
+  font-size: 15px;
+  color: #333;
+`;
+
+  export const LogTime = styled.Text`
+  font-size: 11px;
+  color: #7f8c8d;
+  margin-top: 4px;
+`;
 }
 
-const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-});
+export default function App() {
+  const [inputText, setInputText] = useState('');
+  const [todayLogs, setTodayLogs] = useState([]);
+
+  useEffect(() => {
+    // 1. Setup tables
+    /*  initializeDatabase(); */
+    // 2. Load any existing records saved today
+    refreshLogs();
+  }, []);
+
+  const refreshLogs = () => {
+    /*    const data = getTodayLogs();
+    setTodayLogs(data); */
+  };
+
+  const handleSave = () => {
+    if (!inputText.trim()) {
+      Alert.alert('Empty Log', 'Please type out your food entries first.');
+      return;
+    }
+
+    // Save entry straight into SQLite
+    /* saveDailyLog(inputText); */
+    setInputText('');
+    Keyboard.dismiss();
+
+    // Refresh local list state immediately
+    refreshLogs();
+  };
+
+  return (
+    <S.Container>
+      <S.ContentWrapper>
+        <S.SectionTitle>Log Today&apos;s Meals</S.SectionTitle>
+
+        <S.StyledInput
+          placeholder="Example: Breakfast: 3 scrambled eggs, coffee. Lunch: Chicken wrap..."
+          multiline
+          numberOfLines={4}
+          value={inputText}
+          onChangeText={setInputText}
+        />
+
+        <S.ActionButton onPress={handleSave}>
+          <S.ButtonText>Save Day Log locally</S.ButtonText>
+        </S.ActionButton>
+
+        <S.SectionTitle>Saved Today In SQLite</S.SectionTitle>
+        <FlatList
+          data={todayLogs}
+          /* keyExtractor={(item) => item.id.toString()} */
+          renderItem={({ item }) => (
+            <S.LogCard>
+              {/*               <LogText>{item.raw_text}</LogText>
+              <LogTime>{item.timestamp} ({item.meal_period})</LogTime> */}
+            </S.LogCard>
+          )}
+        />
+      </S.ContentWrapper>
+      <StatusBar style="dark" />
+    </S.Container>
+  );
+}

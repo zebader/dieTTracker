@@ -1,6 +1,6 @@
 
-import TrackerPage from '@/features/tracker/page/Tracker';
+import Tracker from '@/features/tracker/page/Tracker';
 
 export default function TrackerRoute() {
-  return <TrackerPage />
+  return <Tracker />
 }
