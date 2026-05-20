@@ -3,11 +3,15 @@
     "source.fixAll.eslint": "always",
     "source.organizeImports": "always"
   },
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
   "eslint.codeActionsOnSave.mode": "all",
   "eslint.validate": [
     "javascript",
     "javascriptreact",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "files.trimTrailingWhitespace": true
 }
