@@ -1,4 +1,4 @@
-import Lobby from '@/features/lobby/page/Lobby';
+import Lobby from '@/features/lobby/pages/Lobby';
 
 export default function LobbyRoute() {
   return <Lobby />;

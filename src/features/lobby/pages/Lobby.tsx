@@ -14,20 +14,20 @@ export default function Lobby() {
 namespace S {
   export const Container = styled.SafeAreaView`
   flex: 1;
-  background-color: #f7f5f0;
-  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.background};
+  padding: ${({ theme }) => theme.spacing.md};
 `;
 
   export const ContentWrapper = styled.View`
   flex: 1;
   width: 100%;
-  margin-top: 40px;
+  margin-top: ${({ theme }) => theme.spacing.xxl};
 `;
 
   export const SectionTitle = styled.Text`
-  font-size: 20px;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 12px;
+  font-family: ${({ theme }) => theme.typography.bold};
+  font-size: ${({ theme }) => theme.typography.sizes.lg};
+  color: ${({ theme }) => theme.colors.textPrimary};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 }

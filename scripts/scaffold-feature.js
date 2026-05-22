@@ -19,7 +19,7 @@ if (fs.existsSync(targetDir)) {
 }
 
 // Subfolders we want to enforce uniformly inside every feature module
-const subFolders = ['page', 'hooks', 'ui'];
+const subFolders = ['pages', 'hooks', 'ui'];
 
 try {
   // 1. Create the main feature root directory

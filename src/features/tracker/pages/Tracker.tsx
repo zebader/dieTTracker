@@ -69,65 +69,69 @@ export default function Tracker() {
 namespace S {
   export const Container = styled.SafeAreaView`
   flex: 1;
-  background-color: #f7f5f0;
-  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.background};
+  padding: ${({ theme }) => theme.spacing.md};
 `;
 
   export const ContentWrapper = styled.View`
   flex: 1;
   width: 100%;
-  margin-top: 40px;
+  margin-top: ${({ theme }) => theme.spacing.xxl};
 `;
 
   export const SectionTitle = styled.Text`
-  font-size: 20px;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 12px;
+  font-family: ${({ theme }) => theme.typography.bold};
+  font-size: ${({ theme }) => theme.typography.sizes.lg};
+  color: ${({ theme }) => theme.colors.textPrimary};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
   export const StyledInput = styled.TextInput`
-  background-color: #ffffff;
+  font-family: ${({ theme }) => theme.typography.regular};
+  background-color: ${({ theme }) => theme.colors.surface};
   border-width: 1px;
-  border-color: #d1cbd4;
-  border-radius: 8px;
+  border-color: ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radius.medium};
   padding: 12px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.typography.sizes.md};
+  color: ${({ theme }) => theme.colors.textPrimary};
   text-align-vertical: top;
-  margin-bottom: 12px;
+  margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
   export const ActionButton = styled.TouchableOpacity`
-  background-color: #4caf50;
-  padding: 14px;
-  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.accent};
+  padding: ${({ theme }) => theme.spacing.sm};
+  border-radius: ${({ theme }) => theme.radius.medium};
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
   export const ButtonText = styled.Text`
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
+  font-family: ${({ theme }) => theme.typography.semibold};
+  color: ${({ theme }) => theme.colors.surface};
+  font-size: ${({ theme }) => theme.typography.sizes.md};
 `;
 
   export const LogCard = styled.View`
-  background-color: white;
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 10px;
-  border-left-width: 4px;
-  border-left-color: #4caf50;
+  background-color: ${({ theme }) => theme.colors.surface};
+  padding: ${({ theme }) => theme.spacing.md};
+  border-radius: ${({ theme }) => theme.radius.medium};
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  border-left-width: ${({ theme }) => theme.radius.small};
+  border-left-color: ${({ theme }) => theme.colors.accent};
 `;
 
   export const LogText = styled.Text`
-  font-size: 15px;
-  color: #333;
+  font-family: ${({ theme }) => theme.typography.regular};
+  font-size: ${({ theme }) => theme.typography.sizes.md};
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
   export const LogTime = styled.Text`
-  font-size: 11px;
-  color: #7f8c8d;
-  margin-top: 4px;
+  font-family: ${({ theme }) => theme.typography.regular};
+  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin-top:  ${({ theme }) => theme.spacing.xs};
 `;
 }
