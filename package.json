@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "validate": "npm run lint && npm run typecheck",
+    "validate": "pnpm run lint && pnpm run typecheck",
     "prepare": "husky",
     "generate-feature": "node scripts/scaffold-feature.js"
   },
@@ -55,5 +55,6 @@
     "husky": "^9.1.7",
     "typescript": "~5.9.2"
   },
-  "private": true
+  "private": true,
+  "packageManager": "pnpm@10.12.1"
 }

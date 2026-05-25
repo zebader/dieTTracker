@@ -4,10 +4,16 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 ## Get started
 
+This repo uses [pnpm](https://pnpm.io). Enable it once via [Corepack](https://nodejs.org/api/corepack.html) (bundled with Node.js):
+
+```bash
+corepack enable
+```
+
 1. Install dependencies
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. Start the app
@@ -30,7 +36,7 @@ You can start developing by editing the files inside the **app** directory. This
 When you're ready, run:
 
 ```bash
-npm run reset-project
+pnpm run reset-project
 ```
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.

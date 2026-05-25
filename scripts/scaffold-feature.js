@@ -5,7 +5,7 @@ const path = require('path');
 const featureName = process.argv[2];
 
 if (!featureName) {
-  console.error('\x1b[31m%s\x1b[0m', 'Coding Error: Please provide a feature name! Example: npm run generate-feature water-tracker');
+  console.error('\x1b[31m%s\x1b[0m', 'Coding Error: Please provide a feature name! Example: pnpm run generate-feature water-tracker');
   process.exit(1);
 }
 

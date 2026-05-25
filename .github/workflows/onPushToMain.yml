@@ -1,0 +1,21 @@
+name: onPushToMain
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  hello:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Hello
+        run: echo "Hello, world!"
+
+      - name: Runner date
+        run: date
+
+  repo-files:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download repo files
+        uses: actions/checkout@v6
