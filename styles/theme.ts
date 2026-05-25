@@ -1,4 +1,5 @@
-import { typographyFonts } from './fonts';
+import { css } from "styled-components/native";
+import { typographyTokens, TypographyTokens } from './fonts';
 
 export type ThemeColors = {
   background: string;
@@ -23,31 +24,20 @@ export type AppTheme = {
     xl: string;
     xxl: string;
   };
-  typography: {
-    regular: string;
-    medium: string;
-    semibold: string;
-    bold: string;
-    header: string;
-    sizes: {
-      xs: string;
-      sm: string;
-      md: string;
-      lg: string;
-      xl: string;
+  typography: TypographyTokens & {
+    variants:{
+      title: ReturnType<typeof css>;
+      header: ReturnType<typeof css>;
+      body: ReturnType<typeof css>;
+      caption: ReturnType<typeof css>;
     };
-    weights: {
-      regular: string;
-      semibold: string;
-      bold: string;
-    };
-  };
+  },
   radius: {
-    small: string;
-    medium: string;
-    large: string;
-    round: string;
-  };
+    small:string;
+    medium:string;
+    large:string;
+    round:string;
+  }
 };
 
 const shared = {
@@ -61,19 +51,29 @@ const shared = {
   },
 
   typography: {
-    ...typographyFonts,
-    sizes: {
-      xs: '12px',
-      sm: '14px',
-      md: '16px',
-      lg: '20px',
-      xl: '26px',
-    },
-    weights: {
-      regular: '400',
-      semibold: '600',
-      bold: '800',
-    },
+    ...typographyTokens,
+    variants: {
+      title: css`
+        font-family: ${typographyTokens.fonts.bold};
+        font-size: ${typographyTokens.sizes.xl};
+        font-weight: ${typographyTokens.weights.bold};
+      `,
+      header: css`
+        font-family: ${typographyTokens.fonts.semibold};
+        font-size: ${typographyTokens.sizes.lg};
+        font-weight: ${typographyTokens.weights.semibold};
+      `,
+      body: css`
+        font-family: ${typographyTokens.fonts.regular};
+        font-size: ${typographyTokens.sizes.md};
+        font-weight: ${typographyTokens.weights.regular};
+      `,
+      caption: css`
+        font-family: ${typographyTokens.fonts.regular};
+        font-size: ${typographyTokens.sizes.xs};
+        font-weight: ${typographyTokens.weights.regular};
+      `,
+    }
   },
 
   radius: {
@@ -82,7 +82,7 @@ const shared = {
     large: '16px',
     round: '9999px',
   },
-} satisfies Pick<AppTheme, 'spacing' | 'typography' | 'radius'>;
+} satisfies Pick<AppTheme, 'spacing' | 'typography' | 'radius' >;
 
 export const lightTheme: AppTheme = {
   ...shared,
@@ -122,6 +122,3 @@ export const themes: Record<ColorScheme, AppTheme> = {
   light: lightTheme,
   dark: darkTheme,
 };
-
-/** @deprecated Use lightTheme — kept for imports that expect `theme` */
-export const theme = lightTheme;

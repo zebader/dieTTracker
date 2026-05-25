@@ -1,3 +1,4 @@
+import { Text } from "@/components/atoms";
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Keyboard } from 'react-native';
 import { styled } from 'styled-components/native';
@@ -36,7 +37,7 @@ export default function Tracker() {
   return (
     <S.Container>
       <S.ContentWrapper>
-        <S.SectionTitle>Log Today&apos;s Meals</S.SectionTitle>
+        <S.SectionTitle variant="title">Log Today&apos;s Meals</S.SectionTitle>
 
         <S.StyledInput
           placeholder="Example: Breakfast: 3 scrambled eggs, coffee. Lunch: Chicken wrap..."
@@ -57,7 +58,7 @@ export default function Tracker() {
           renderItem={({ item }) => (
             <S.LogCard>
               {/*               <LogText>{item.raw_text}</LogText>
-              <LogTime>{item.timestamp} ({item.meal_period})</LogTime> */}
+              <LogTime variant="caption">{item.timestamp} ({item.meal_period})</LogTime> */}
             </S.LogCard>
           )}
         />
@@ -79,15 +80,13 @@ namespace S {
   margin-top: ${({ theme }) => theme.spacing.xxl};
 `;
 
-  export const SectionTitle = styled.Text`
-  font-family: ${({ theme }) => theme.typography.bold};
-  font-size: ${({ theme }) => theme.typography.sizes.lg};
+  export const SectionTitle = styled(Text)`
   color: ${({ theme }) => theme.colors.textPrimary};
   margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
   export const StyledInput = styled.TextInput`
-  font-family: ${({ theme }) => theme.typography.regular};
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   background-color: ${({ theme }) => theme.colors.surface};
   border-width: 1px;
   border-color: ${({ theme }) => theme.colors.border};
@@ -107,8 +106,7 @@ namespace S {
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
-  export const ButtonText = styled.Text`
-  font-family: ${({ theme }) => theme.typography.semibold};
+  export const ButtonText = styled(Text)`
   color: ${({ theme }) => theme.colors.surface};
   font-size: ${({ theme }) => theme.typography.sizes.md};
 `;
@@ -122,15 +120,11 @@ namespace S {
   border-left-color: ${({ theme }) => theme.colors.accent};
 `;
 
-  export const LogText = styled.Text`
-  font-family: ${({ theme }) => theme.typography.regular};
-  font-size: ${({ theme }) => theme.typography.sizes.md};
+  export const LogText = styled(Text)`
   color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
-  export const LogTime = styled.Text`
-  font-family: ${({ theme }) => theme.typography.regular};
-  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  export const LogTime = styled(Text)`
   color: ${({ theme }) => theme.colors.textSecondary};
   margin-top:  ${({ theme }) => theme.spacing.xs};
 `;

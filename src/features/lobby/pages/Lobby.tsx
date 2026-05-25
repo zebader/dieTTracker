@@ -1,3 +1,4 @@
+import { Text } from "@/components/atoms";
 import React from 'react';
 import { styled } from 'styled-components/native';
 
@@ -5,7 +6,7 @@ export default function Lobby() {
   return (
     <S.Container>
       <S.ContentWrapper>
-        <S.SectionTitle>Lobby</S.SectionTitle>
+        <S.SectionTitle variant="title">Lobby</S.SectionTitle>
       </S.ContentWrapper>
     </S.Container>
   );
@@ -24,9 +25,7 @@ namespace S {
   margin-top: ${({ theme }) => theme.spacing.xxl};
 `;
 
-  export const SectionTitle = styled.Text`
-  font-family: ${({ theme }) => theme.typography.bold};
-  font-size: ${({ theme }) => theme.typography.sizes.lg};
+  export const SectionTitle = styled(Text)`
   color: ${({ theme }) => theme.colors.textPrimary};
   margin-bottom: ${({ theme }) => theme.spacing.md};
 `;

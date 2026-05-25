@@ -1,3 +1,4 @@
+import { Text as TextAtom } from "@/components/atoms";
 import { Link } from 'expo-router';
 import { styled } from 'styled-components/native';
 
@@ -20,7 +21,7 @@ namespace S {
   padding: ${({ theme }) => theme.spacing.md};
   `
 
-  export const Text = styled.Text`
+  export const Text = styled(TextAtom)`
    margin-top: ${({ theme }) => theme.spacing.md};
    padding: ${({ theme }) => theme.spacing.md} 0;
   `
