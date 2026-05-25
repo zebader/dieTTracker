@@ -1,0 +1,14 @@
+{
+  "extends": "../node_modules/expo/tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@/*": ["./../src/*"],
+      "@/hooks/*": ["./../src/hooks/*"],
+      "@/providers/*": ["./../src/providers/*"],
+      "@/components/*": ["./../src/components/*"],
+      "@/assets": ["./../assets/index.ts"]
+    }
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"]
+}

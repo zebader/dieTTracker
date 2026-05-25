@@ -41,6 +41,25 @@ pnpm run reset-project
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
+## Storybook
+
+Component stories live under `src/components/atoms` and `src/components/molecules`.
+
+1. Start the dev server (or use the Storybook-specific scripts):
+
+   ```bash
+   pnpm start
+   # or: pnpm storybook:ios / pnpm storybook:android
+   ```
+
+2. Open the Storybook route in the app: navigate to `/storybook` (e.g. from Expo Router deep link or add a dev link in the UI).
+
+After adding or moving story files, regenerate the story index:
+
+```bash
+pnpm run storybook:generate
+```
+
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:

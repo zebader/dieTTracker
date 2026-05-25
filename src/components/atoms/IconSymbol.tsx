@@ -20,6 +20,7 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'sun.max.fill': 'light-mode',
   'moon.fill': 'dark-mode',
+  'book.fill': 'auto-stories',
 } as IconMapping;
 
 /**

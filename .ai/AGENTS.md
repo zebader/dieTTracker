@@ -58,6 +58,23 @@ When generating code for this project:
 - Include testIDs for all interactive elements
 - Use theme keys for all styling
 
+### Storybook (atoms & molecules)
+
+Whenever you **create or update** a component under `src/components/atoms/` or `src/components/molecules/`:
+
+1. **Check for a colocated story** — `ComponentName.stories.tsx` next to `ComponentName.tsx`.
+2. **Create the story** if it does not exist; **update the story** if props, variants, behavior, or visual states changed.
+3. **Story conventions:**
+   - Title: `Atoms/ComponentName` or `Molecules/ComponentName` (match folder).
+   - Use CSF3 (`Meta`, `StoryObj`) from `@storybook/react-native`.
+   - Rely on the global `withAppTheme` decorator in `.rnstorybook/preview.tsx` (Poppins + `ThemeProvider`); do not duplicate theme setup unless a story needs an exception.
+   - Cover default usage plus meaningful variants (sizes, colors, states, edge cases).
+   - If `render` uses hooks (`useTheme`, etc.), extract a **PascalCase** inner component (see `Text.stories.tsx`) to satisfy `react-hooks/rules-of-hooks`.
+4. **After adding or moving story files**, run `pnpm run storybook:generate` to refresh `.rnstorybook/storybook.requires.ts`.
+5. **Export** new components from the folder `index.ts` when applicable.
+
+Use existing stories (`Text.stories.tsx`, `IconSymbol.stories.tsx`, `HapticTab.stories.tsx`) as templates. Do not add stories for feature screens or other layers unless explicitly requested.
+
 ### Icons
 
 - **Never import icon libraries directly in features or screens.** Always render icons through the shared `IconSymbol` atom (`@/components/atoms`).
@@ -90,6 +107,7 @@ When generating code for this project:
 - [ ] Imports use correct `@/-*` packages
 - [ ] Logic is extracted to shared libraries when appropriate
 - [ ] Tests are written for new functionality
+- [ ] Atom/molecule changes include an up-to-date `*.stories.tsx` (and `storybook:generate` was run if story paths changed)
 
 ## Common Mistakes to Avoid
 
@@ -103,3 +121,4 @@ When generating code for this project:
 - Don't forget error boundaries for React components
 - Don't run synchronous database queries (`execSync`, `runSync`) in UI components—keep calculations off the main thread
 - Don't violate dependency rules
+- Don't ship new or changed atoms/molecules without creating or updating their Storybook story
