@@ -58,6 +58,13 @@ When generating code for this project:
 - Include testIDs for all interactive elements
 - Use theme keys for all styling
 
+### Icons
+
+- **Never import icon libraries directly in features or screens.** Always render icons through the shared `IconSymbol` atom (`@/components/atoms`).
+- **`IconSymbol` implementation:** On Android and web, `IconSymbol` must use `MaterialIcons` from `@expo/vector-icons/MaterialIcons` inside `src/components/atoms/IconSymbol.tsx`. Add every new icon to the `MAPPING` object there (SF Symbol name → Material Icons name). Browse names at [icons.expo.fyi](https://icons.expo.fyi).
+- **iOS:** `IconSymbol.ios.tsx` uses SF Symbols via `expo-symbols`; keep the same SF Symbol `name` keys as in the Android/web mapping.
+- **Usage:** Pass `name`, `size`, and `color` (resolved theme color string) to `IconSymbol`. Example: theme toggle uses `sun.max.fill` when dark (switch to light) and `moon.fill` when light (switch to dark).
+
 ### When Writing SQLite Operations
 
 - **Asynchronous Execution:** Always use asynchronous execution (`*Async` methods like `runAsync`, `getAllAsync`, `getFirstAsync`) to keep the JavaScript thread free and prevent UI freezing.
@@ -87,6 +94,7 @@ When generating code for this project:
 ## Common Mistakes to Avoid
 
 - Don't hardcode colors/spacing - use theme keys
+- Don't import `@expo/vector-icons` or other icon sets outside `IconSymbol` — extend `MAPPING` instead
 - Don't skip testIDs - they're required for testing
 - Don't update testIDs without raising a warning (e.g. adding a "TODO: let know QA about this change")
 - Don't create duplicate logic - extract to shared libraries

@@ -1,6 +1,7 @@
-import { Text } from "@/components/atoms";
+import { Text } from '@/components/atoms';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Keyboard } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { styled } from 'styled-components/native';
 
 export default function Tracker() {
@@ -37,7 +38,11 @@ export default function Tracker() {
   return (
     <S.Container>
       <S.ContentWrapper>
-        <S.SectionTitle variant="title">Log Today&apos;s Meals</S.SectionTitle>
+        <S.TitleBlock>
+          <Text variant="title" color="textPrimary">
+            Log Today&apos;s Meals
+          </Text>
+        </S.TitleBlock>
 
         <S.StyledInput
           placeholder="Example: Breakfast: 3 scrambled eggs, coffee. Lunch: Chicken wrap..."
@@ -48,17 +53,21 @@ export default function Tracker() {
         />
 
         <S.ActionButton onPress={handleSave}>
-          <S.ButtonText>Save Day Log locally</S.ButtonText>
+          <Text color="surface">Save Day Log locally</Text>
         </S.ActionButton>
 
-        <S.SectionTitle>Saved Today In SQLite</S.SectionTitle>
+        <S.TitleBlock>
+          <Text>Saved Today In SQLite</Text>
+        </S.TitleBlock>
         <FlatList
           data={todayLogs}
           /* keyExtractor={(item) => item.id.toString()} */
           renderItem={({ item }) => (
             <S.LogCard>
-              {/*               <LogText>{item.raw_text}</LogText>
-              <LogTime variant="caption">{item.timestamp} ({item.meal_period})</LogTime> */}
+              {/* <Text color="textPrimary">{item.raw_text}</Text>
+              <Text variant="caption" color="textSecondary">
+                {item.timestamp} ({item.meal_period})
+              </Text> */}
             </S.LogCard>
           )}
         />
@@ -68,64 +77,51 @@ export default function Tracker() {
 }
 
 namespace S {
-  export const Container = styled.SafeAreaView`
-  flex: 1;
-  background-color: ${({ theme }) => theme.colors.background};
-  padding: ${({ theme }) => theme.spacing.md};
-`;
+  export const Container = styled(SafeAreaView)`
+    flex: 1;
+    background-color: ${({ theme }) => theme.colors.background};
+    padding: ${({ theme }) => theme.spacing.md};
+  `;
 
   export const ContentWrapper = styled.View`
-  flex: 1;
-  width: 100%;
-  margin-top: ${({ theme }) => theme.spacing.xxl};
-`;
+    flex: 1;
+    width: 100%;
+    margin-top: ${({ theme }) => theme.spacing.xxl};
+  `;
 
-  export const SectionTitle = styled(Text)`
-  color: ${({ theme }) => theme.colors.textPrimary};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
+  export const TitleBlock = styled.View`
+    margin-bottom: ${({ theme }) => theme.spacing.md};
+  `;
 
-  export const StyledInput = styled.TextInput`
-  font-family: ${({ theme }) => theme.typography.fonts.regular};
-  background-color: ${({ theme }) => theme.colors.surface};
-  border-width: 1px;
-  border-color: ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.radius.medium};
-  padding: 12px;
-  font-size: ${({ theme }) => theme.typography.sizes.md};
-  color: ${({ theme }) => theme.colors.textPrimary};
-  text-align-vertical: top;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
+  export const StyledInput = styled.TextInput.attrs(({ theme }) => ({
+    placeholderTextColor: theme.colors.textSecondary,
+  }))`
+    font-family: ${({ theme }) => theme.typography.fonts.regular};
+    background-color: ${({ theme }) => theme.colors.surface};
+    border-width: 1px;
+    border-color: ${({ theme }) => theme.colors.border};
+    border-radius: ${({ theme }) => theme.radius.medium};
+    padding: 12px;
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+    color: ${({ theme }) => theme.colors.textPrimary};
+    text-align-vertical: top;
+    margin-bottom: ${({ theme }) => theme.spacing.md};
+  `;
 
   export const ActionButton = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.colors.accent};
-  padding: ${({ theme }) => theme.spacing.sm};
-  border-radius: ${({ theme }) => theme.radius.medium};
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-  export const ButtonText = styled(Text)`
-  color: ${({ theme }) => theme.colors.surface};
-  font-size: ${({ theme }) => theme.typography.sizes.md};
-`;
+    background-color: ${({ theme }) => theme.colors.accent};
+    padding: ${({ theme }) => theme.spacing.sm};
+    border-radius: ${({ theme }) => theme.radius.medium};
+    align-items: center;
+    margin-bottom: ${({ theme }) => theme.spacing.lg};
+  `;
 
   export const LogCard = styled.View`
-  background-color: ${({ theme }) => theme.colors.surface};
-  padding: ${({ theme }) => theme.spacing.md};
-  border-radius: ${({ theme }) => theme.radius.medium};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-  border-left-width: ${({ theme }) => theme.radius.small};
-  border-left-color: ${({ theme }) => theme.colors.accent};
-`;
-
-  export const LogText = styled(Text)`
-  color: ${({ theme }) => theme.colors.textPrimary};
-`;
-
-  export const LogTime = styled(Text)`
-  color: ${({ theme }) => theme.colors.textSecondary};
-  margin-top:  ${({ theme }) => theme.spacing.xs};
-`;
+    background-color: ${({ theme }) => theme.colors.surface};
+    padding: ${({ theme }) => theme.spacing.md};
+    border-radius: ${({ theme }) => theme.radius.medium};
+    margin-bottom: ${({ theme }) => theme.spacing.sm};
+    border-left-width: ${({ theme }) => theme.radius.small};
+    border-left-color: ${({ theme }) => theme.colors.accent};
+  `;
 }

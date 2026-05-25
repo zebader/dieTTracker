@@ -14,6 +14,8 @@ export type ThemeColors = {
   link: string;
 };
 
+export type ThemeColorKey = keyof ThemeColors;
+
 export type AppTheme = {
   colors: ThemeColors;
   spacing: {
@@ -39,6 +41,8 @@ export type AppTheme = {
     round:string;
   }
 };
+
+export type TextVariant = keyof AppTheme['typography']['variants'];
 
 const shared = {
   spacing: {
