@@ -1,4 +1,4 @@
-import { Text } from '@/components/atoms';
+import { Text, TextInput } from '@/components/atoms';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Keyboard } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -44,13 +44,16 @@ export default function Tracker() {
           </Text>
         </S.TitleBlock>
 
-        <S.StyledInput
-          placeholder="Example: Breakfast: 3 scrambled eggs, coffee. Lunch: Chicken wrap..."
-          multiline
-          numberOfLines={4}
-          value={inputText}
-          onChangeText={setInputText}
-        />
+        <S.InputBlock>
+          <TextInput
+            testID="tracker-log-input"
+            placeholder="Example: Breakfast: 3 scrambled eggs, coffee. Lunch: Chicken wrap..."
+            multiline
+            numberOfLines={4}
+            value={inputText}
+            onChangeText={setInputText}
+          />
+        </S.InputBlock>
 
         <S.ActionButton onPress={handleSave}>
           <Text color="surface">Save Day Log locally</Text>
@@ -66,7 +69,7 @@ export default function Tracker() {
             <S.LogCard>
               {/* <Text color="textPrimary">{item.raw_text}</Text>
               <Text variant="caption" color="textSecondary">
-                {item.timestamp} ({item.meal_period})
+                {item.timestamp} ({item.period})
               </Text> */}
             </S.LogCard>
           )}
@@ -93,18 +96,7 @@ namespace S {
     margin-bottom: ${({ theme }) => theme.spacing.md};
   `;
 
-  export const StyledInput = styled.TextInput.attrs(({ theme }) => ({
-    placeholderTextColor: theme.colors.textSecondary,
-  }))`
-    font-family: ${({ theme }) => theme.typography.fonts.regular};
-    background-color: ${({ theme }) => theme.colors.surface};
-    border-width: 1px;
-    border-color: ${({ theme }) => theme.colors.border};
-    border-radius: ${({ theme }) => theme.radius.medium};
-    padding: 12px;
-    font-size: ${({ theme }) => theme.typography.sizes.md};
-    color: ${({ theme }) => theme.colors.textPrimary};
-    text-align-vertical: top;
+  export const InputBlock = styled.View`
     margin-bottom: ${({ theme }) => theme.spacing.md};
   `;
 
