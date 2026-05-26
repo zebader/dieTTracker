@@ -57,6 +57,7 @@ When generating code for this project:
 - Use styled-components with `S` namespace
 - Include testIDs for all interactive elements
 - Use theme keys for all styling
+- Add or update colocated `ComponentName.test.tsx` when creating or changing atoms, molecules, or other shared `src/components/` UI (see **Unit tests** below)
 
 ### Storybook (atoms & molecules)
 
@@ -74,6 +75,28 @@ Whenever you **create or update** a component under `src/components/atoms/` or `
 5. **Export** new components from the folder `index.ts` when applicable.
 
 Use existing stories (`Text.stories.tsx`, `IconSymbol.stories.tsx`, `HapticTab.stories.tsx`) as templates. Do not add stories for feature screens or other layers unless explicitly requested.
+
+### Unit tests (Jest & React Native Testing Library)
+
+The project uses **Jest** with the **`jest-expo`** preset and **`@testing-library/react-native`** for unit and component tests. Official reference: [Expo unit testing](https://docs.expo.dev/develop/unit-testing/).
+
+Whenever you **create or update** a reusable component under `src/components/atoms/`, `src/components/molecules/`, or other shared `src/components/` UI (not feature screens unless explicitly requested):
+
+1. **Check for a colocated test** — `ComponentName.test.tsx` next to `ComponentName.tsx`.
+2. **Create the test** if it does not exist; **update the test** if props, variants, behavior, accessibility, or user-visible output changed.
+3. **Test conventions:**
+   - Colocate: `src/components/atoms/Text.test.tsx` beside `Text.tsx` (same folder as the component).
+   - Use `describe` / `it` blocks; name tests by user-visible behavior (e.g. “renders children”, “calls onPress when pressed”).
+   - Import `render` from `@testing-library/react-native` only when no theme wrapper is needed; otherwise use **`renderWithTheme`** from `@/testing/render-with-theme` for any component that uses `useTheme`, styled-components, or theme tokens.
+   - Prefer queries aligned with how users interact: `getByText`, `getByTestId`, `getByRole` (when applicable). Assert with `toBeOnTheScreen()`, `toHaveTextContent()`, etc.
+   - Cover default render, meaningful variants (sizes, colors, states), and important interactions (press, toggle) when the component supports them.
+   - Do **not** use `@testing-library/react` (web/DOM); use **`@testing-library/react-native`** only.
+4. **After adding or changing tests**, run `pnpm run test:ci` (or `pnpm test`) and ensure they pass. `pnpm run validate` includes tests on pre-commit.
+5. **Export** is unchanged by tests; keep component `index.ts` exports in sync when adding new atoms/molecules.
+
+Use `Text.test.tsx` and `src/testing/render-with-theme.tsx` as templates. For hooks, utilities, and feature logic outside `src/components/`, add tests when behavior is non-trivial or when explicitly requested.
+
+**Scripts:** `pnpm test` (once), `pnpm test:watch` (watch), `pnpm test:ci` (CI / validate).
 
 ### Icons
 
@@ -106,7 +129,8 @@ Use existing stories (`Text.stories.tsx`, `IconSymbol.stories.tsx`, `HapticTab.s
 - [ ] Code follows established component structure
 - [ ] Imports use correct `@/-*` packages
 - [ ] Logic is extracted to shared libraries when appropriate
-- [ ] Tests are written for new functionality
+- [ ] Tests are written or updated for new/changed functionality
+- [ ] Atom/molecule (and shared component) changes include an up-to-date colocated `*.test.tsx` (`pnpm run test:ci` passes)
 - [ ] Atom/molecule changes include an up-to-date `*.stories.tsx` (and `storybook:generate` was run if story paths changed)
 
 ## Common Mistakes to Avoid
@@ -121,4 +145,7 @@ Use existing stories (`Text.stories.tsx`, `IconSymbol.stories.tsx`, `HapticTab.s
 - Don't forget error boundaries for React components
 - Don't run synchronous database queries (`execSync`, `runSync`) in UI components—keep calculations off the main thread
 - Don't violate dependency rules
+- Don't ship new or changed atoms/molecules (or shared `src/components/` UI) without creating or updating their colocated `*.test.tsx`
 - Don't ship new or changed atoms/molecules without creating or updating their Storybook story
+- Don't use `@testing-library/react` in this React Native project — use `@testing-library/react-native`
+- Don't render theme-dependent components in tests without `renderWithTheme` (or an equivalent `ThemeProvider` wrapper)

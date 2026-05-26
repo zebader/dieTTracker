@@ -10,7 +10,10 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "validate": "pnpm run lint && pnpm run typecheck",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:ci": "jest --ci --coverage=false",
+    "validate": "pnpm run lint && pnpm run typecheck && pnpm run test:ci",
     "prepare": "husky",
     "generate-feature": "node scripts/scaffold-feature.js",
     "storybook": "cross-env STORYBOOK_ENABLED=true expo start",
@@ -64,14 +67,32 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@testing-library/react-native": "^13.3.3",
+    "@types/jest": "29.5.14",
     "@types/react": "~19.1.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-unused-imports": "^4.4.1",
     "husky": "^9.1.7",
+    "jest": "~29.7.0",
+    "jest-expo": "~54.0.17",
     "typescript": "~5.9.2"
   },
   "private": true,
-  "packageManager": "pnpm@10.12.1"
+  "packageManager": "pnpm@10.12.1",
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|styled-components)"
+    ],
+    "moduleNameMapper": {
+      "^@/assets$": "<rootDir>/assets/index.ts",
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.stories.tsx"
+    ]
+  }
 }
