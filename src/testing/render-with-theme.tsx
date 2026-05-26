@@ -2,10 +2,13 @@ import { render, type RenderOptions } from '@testing-library/react-native';
 import type { ReactElement, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components/native';
 
+import { JotaiProvider } from '@/providers/jotai-provider';
 import { lightTheme } from '../../styles/theme';
 
 const ThemeWrapper = ({ children }: { children: ReactNode }) => (
-  <ThemeProvider theme={lightTheme}>{children}</ThemeProvider>
+  <JotaiProvider>
+    <ThemeProvider theme={lightTheme}>{children}</ThemeProvider>
+  </JotaiProvider>
 );
 
 export const renderWithTheme = (

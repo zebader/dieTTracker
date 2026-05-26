@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { AppThemeProvider, useAppTheme } from '@/providers/app-theme-provider';
+import { JotaiProvider } from '@/providers/jotai-provider';
 import { poppinsFontsToLoad } from '../styles/fonts';
 
 SplashScreen.preventAutoHideAsync();
@@ -44,7 +45,9 @@ export default function RootLayout() {
 
   return (
     <AppThemeProvider>
-      <RootNavigator />
+      <JotaiProvider>
+        <RootNavigator />
+      </JotaiProvider>
     </AppThemeProvider>
   );
 }
